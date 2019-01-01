@@ -11,27 +11,22 @@ class Result
   end
 
   def initialize(result)
-    @result = result
+    @RESULT = result
   end
 
   def print_res(test)
     sum_otv = test.sum_otv
     puts "Результат теста #{sum_otv} баллов."
     puts
-    if sum_otv >= 30
-      puts @result[0]
-    elsif sum_otv >= 25
-      puts @result[1]
-    elsif sum_otv >= 19
-      puts @result[2]
-    elsif sum_otv >= 14
-      puts @result[3]
-    elsif sum_otv >= 9
-      puts @result[4]
-    elsif sum_otv >= 4
-      puts @result[5]
-    else
-      puts @result[6]
-    end
+    res = case sum_otv
+          when (1..3) then 6
+          when (4..8) then 5
+          when (9..13) then 4
+          when (14..18) then 3
+          when (19..24) then 2
+          when (25..29) then 1
+          else 0
+          end
+    puts @RESULT[res]
   end
 end
