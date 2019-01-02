@@ -1,17 +1,13 @@
 class Result
-  def self.from_file(pach)
-    if File.exist?(pach)
-      file = File.new(pach,"r:UTF-8")
-      result = file.readlines
-      file.close
-      new (result)
-    else
-      abort "Не найден файл ответов - #{pach}"
-    end
+  def self.from_file(path)
+    file = File.new(path,"r:UTF-8")
+    result = file.readlines
+    file.close
+    new (result)
   end
 
   def initialize(result)
-    @RESULT = result
+    @result = result
   end
 
   def print_res(test)
@@ -27,6 +23,6 @@ class Result
           when (25..29) then 1
           else 0
           end
-    puts @RESULT[res]
+    puts @result[res]
   end
 end
