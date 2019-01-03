@@ -1,27 +1,26 @@
-require_relative "./lib/test.rb"
-require_relative "./lib/result.rb"
+require_relative "lib/test"
+require_relative "lib/result"
+
+questions_path = __dir__ + "/data/questions.txt"
+begin
+  test = Test.from_file(questions_path)
+rescue Errno::ENOENT
+  abort "Не найден файл вопросов - #{questions_path}."
+end
+
+results_path = __dir__ + "/data/result.txt"
+begin
+  result = Result.from_file(results_path)
+rescue Errno::ENOENT
+  abort "Не найден файл ответов - #{results_path}"
+end
 
 puts "Тест поможет определить ваш уровень коммуникабельности."
 puts
 puts "Для этого необходимо правдиво ответить на следующие вопросы."
 puts
 
-questions_path = __dir__ + "/data/questions.txt"
-begin
-  test = Test.from_file(questions_path)
-rescue
-  abort "Не найден файл вопросов - #{questions_path}"
-end
-
-results_path = __dir__ + "/data/result.txt"
-begin
-  result = Result.from_file(results_path)
-rescue
-  abort "Не найден файл ответов - #{results_path}"
-end
-
-
-while test.finished?
+while test.in_progress?
   otv = 0
   until (1..3).include?(otv)
     puts test.question
@@ -30,7 +29,9 @@ while test.finished?
     otv = gets.to_i
     puts
   end
-  test.ask_a_question(otv)
+  test.answer_question(otv)
 end
 
-result.print_res(test)
+puts "Результат теста #{test.sum_otv} баллов."
+puts
+puts result.print_res(test.sum_otv)

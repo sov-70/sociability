@@ -2,10 +2,10 @@ class Test
   attr_reader :sum_otv
 
   def self.from_file(path)
-      file = File.new(path,"r:UTF-8")
-      questions = file.readlines
-      file.close
-      new (questions)
+    file = File.new(path,"r:UTF-8")
+    questions = file.readlines
+    file.close
+    new(questions)
   end
 
   def initialize(questions)
@@ -14,8 +14,8 @@ class Test
     @questions = questions
   end
 
-  def ask_a_question(otv)
-     if otv == 1
+  def answer_question(otv)
+    if otv == 1
       @sum_otv += 2
     elsif otv == 3
       @sum_otv += 1
@@ -27,7 +27,7 @@ class Test
     @questions[@num_step]
   end
 
-  def finished?
+  def in_progress?
     @num_step < @questions.size
   end
 end
